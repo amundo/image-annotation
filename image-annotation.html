@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+<style>
+img {
+  width:100%;
+  position:relative;
+}
+
+figure {
+  position: relative;
+}
+ 
+
+.dot-view {
+  position: absolute;
+  display:inline-block;
+  background-color:white;
+  border: 1px solid black;
+  border-radius: 50%;
+
+  font-size:x-small;
+  
+  width: 1em;
+  height: 1em;
+
+  display:grid;
+  justify-content:center;
+  align-items:center;
+}
+</style>
+</head>
+<body>
+  
+<figure>
+  <!-- img src=https://raw.githubusercontent.com/tooto1985/js-array-operations/master/main.jpg -->
+
+ <img src="graph.png" alt="">
+</figure>
+
+<script type=module>
+import {DotView} from './DotView.js'
+
+
+
+let i = 0
+
+let dotAtClick = clickEvent => {
+  let x = clickEvent.offsetX
+  let y = clickEvent.offsetY 
+
+  document.querySelector('figure').appendChild(new DotView({x,y,i: ++i, backgroundColor:"fuchsia"}).render().el)  
+}
+
+document.querySelector('img').addEventListener('click', dotAtClick)
+</script>
+
+</body>
+</html>
