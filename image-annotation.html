@@ -34,27 +34,24 @@ figure {
 </head>
 <body>
   
-<figure>
-  <!-- img src=https://raw.githubusercontent.com/tooto1985/js-array-operations/master/main.jpg -->
-
- <img src="graph.png" alt="">
-</figure>
+<annotation-view></annotation-view>
 
 <script type=module>
-import {DotView} from './DotView.js'
+import {AnnotationView} from './AnnotationView.js'
 
 
 
-let i = 0
 
-let dotAtClick = clickEvent => {
-  let x = clickEvent.offsetX
-  let y = clickEvent.offsetY 
+// let i = 0
 
-  document.querySelector('figure').appendChild(new DotView({x,y,i: ++i, backgroundColor:"fuchsia"}).render().el)  
-}
+// let dotAtClick = clickEvent => {
+//   let x = clickEvent.offsetX
+//   let y = clickEvent.offsetY 
 
-document.querySelector('img').addEventListener('click', dotAtClick)
+//   document.querySelector('figure').appendChild(new DotView({x,y,i: ++i, backgroundColor:"fuchsia"}).render().el)  
+// }
+
+// document.querySelector('img').addEventListener('click', dotAtClick)
 </script>
 
 </body>

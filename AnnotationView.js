@@ -1,50 +1,76 @@
 import {DotView} from './DotView.js'
-import {RectangleView} from './RectangleView.js'
+// import {RectangleView} from './RectangleView.js'
 
-export class AnnotationView {
-  constructor({
-    el=document.createElement("figure"),
-    img
-  }){
-    this.el = el
-    this.el.classList.add("annotation-view")
-    this.img = img
+export class AnnotationView extends HTMLElement {
+  constructor(){
+    super()
+    this.innerHTML = `
+    <header class=annotation-view-header>
+      <input type=file class=annotation-view-image-loader>
+    </header>
+    <figure>
+      <img>
+    </figure>
+    `
 
     this.annotations = []
 
-    this.reset()
+    this.i = 0
+
     this.listen()
+
   }
 
-  reset(){
-    this.el.innerHTML = `
-      <header class=annotation-view-header>
-        <input type=file class=annotation-view-image-loader>
-      </header>
-      <figure>
+  connectedCallback(){
 
-      </figure>
-    `
+  }
+
+  static get observedAttributes(){
+    return []
+  }
+
+  attributeChangedCallback(attribute, oldValue, newValue){
+
   }
 
   render(){
-    this.el.querySelector('figure').appendChild(this.img)
+    this.querySelector('figure').appendChild(this.img)
     return this
+
+  }
+
+  where(e){
+    let rect = e.target.getBoundingClientRect()
+    let x = e.clientX - rect.left //x position within the element
+    let y = e.clientY - rect.top  //y position within the element
+    return {x,y}
   }
 
   listen(){
-
-    this.el.querySelector('figure').addEventListener('mousedown', mousedownEvent => {
+    this.querySelector('figure').addEventListener('mousedown', mousedownEvent => {
       
     })
 
-    let dotAtClick = clickEvent => {
-      let x = clickEvent.offsetX
-      let y = clickEvent.offsetY 
+    this.querySelector("input[type=file]").addEventListener('change', changeEvent => {
+      let img = this.querySelector('img')
+      img.src = URL.createObjectURL(changeEvent.target.files[0])
+      img.addEventListener('load', loadEvent => {
+        URL.revokeObjectURL(img.src) // free memory
+      })
+    })
     
-      this.el.appendChild(new DotView({x,y,i: ++i, backgroundColor:"fuchsia"}).render().el)  
-    }
+    this.querySelector('img').addEventListener('click', clickEvent => {
+      let x0 = clickEvent.offsetX
+      let y0 = clickEvent.offsetY 
     
-    document.querySelector('img').addEventListener('click', dotAtClick)
+      
+      let {x,y} = this.where(clickEvent)
+      console.log({x,y,x0,y0});
+      this.appendChild(new DotView({x,y, i: ++this.i, backgroundColor:"fuchsia"}).render().el)  
+    })
+
   }
 }
+
+customElements.define('annotation-view', AnnotationView)
+
