@@ -1,32 +1,47 @@
-export class DotView {
-  constructor({
-    x,
-    y, 
-    width=10, 
-    backgroundColor='red', 
-    i
-  }){
-    this.el = document.createElement('div')
-    this.el.classList.add('dot-view')
+class DotView extends HTMLElement {
+  constructor(){
+    super();
+    
+    this.classList.add('dot-view');
+    
+    const x = this.getAttribute('x');
+    const y = this.getAttribute('y');
+    const i = this.getAttribute('i');
+    const width = this.getAttribute('width') || 10;
+    const backgroundColor = this.getAttribute('backgroundColor') || 'red';
 
-    this.el.textContent = i
-    this.el.style.backgroundColor = backgroundColor 
-    this.el.style.left = `${Math.floor(x - width/2)}px`
-    this.el.style.top = `${Math.floor(y - width/2)}px`
+    this.textContent = i;
+    this.style.backgroundColor = backgroundColor;
+    this.style.left = `${Math.floor(x - width/2)}px`;
+    this.style.top = `${Math.floor(y - width/2)}px`;
+    this.listen();
   }
 
   render(){
-    return this
+    return this;
   } 
 
   listen(){
-    this.el.addEventListener('click', clickEvent => {
+    this.addEventListener('click', clickEvent => {
       if(clickEvent.shiftKey){
-        this.el.dispatchEvent(new CustomEvent('destroy-dot-view', {
+        this.dispatchEvent(new CustomEvent('destroy-dot-view', {
           bubbles: true,
           detail: this.annotation
-        }))
+        }));
       }
-    })
+    });
+  }
+
+  connectedCallback() {
+    this.listen();
+  }
+
+  disconnectedCallback() {
+    // Unbind all event handlers here to prevent memory leaks
   }
 }
+
+customElements.define('dot-view', DotView);
+
+
+export { DotView}

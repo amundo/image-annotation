@@ -14,7 +14,7 @@ figure {
 }
  
 
-.dot-view {
+dot-view {
   position: absolute;
   display:inline-block;
   background-color:white;
@@ -34,24 +34,10 @@ figure {
 </head>
 <body>
   
-<annotation-view></annotation-view>
+<image-annotation-view src="canvas/mystery.jpg"></image-annotation-view>
 
 <script type=module>
-import {AnnotationView} from './AnnotationView.js'
-
-
-
-
-// let i = 0
-
-// let dotAtClick = clickEvent => {
-//   let x = clickEvent.offsetX
-//   let y = clickEvent.offsetY 
-
-//   document.querySelector('figure').appendChild(new DotView({x,y,i: ++i, backgroundColor:"fuchsia"}).render().el)  
-// }
-
-// document.querySelector('img').addEventListener('click', dotAtClick)
+import {ImageAnnotationView} from './ImageAnnotationView.js'
 </script>
 
 </body>
