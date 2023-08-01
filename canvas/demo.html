@@ -1,0 +1,31 @@
+<html>
+
+<head>
+
+  <title>Clip an image</title>
+</head>
+
+<body>
+  <canvas id="canvas" width="900" height="500"></canvas><br>
+  <script>
+      let canvas = document.getElementById("canvas")
+     if (canvas.getContext) {
+       let ctx = canvas.getContext("2d")
+
+        let image = new Image()
+
+        image.src = "mystery.jpg"
+
+       // Make sure the image is loaded before you draw it on the canvas
+       image.onload = function () {
+
+         // Draw the original image at location (0,0). This is only for reference.
+         ctx.drawImage(image, 0, 0)
+
+         //Clip a 100 X 100 area starting at (40,95), scale it to 200 X 200 and draw at location //(450,0)
+         ctx.drawImage(image, 40, 95, 100, 100, 450, 0, 200, 200)
+       }
+     }
+ </script></body>
+
+</html>

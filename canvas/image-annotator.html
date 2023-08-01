@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Image Annotator</title>
+  <link rel="stylesheet" href="http://glyph.local/~pat/docling/css/index.css">
+<link rel="stylesheet" href="image-annotator-view.css">
+</head>
+<body>
+
+<main>
+</main>
+
+<script type=module>
+import {ImageAnnotatorView} from './ImageAnnotatorView.js'
+ 
+let imageAnnotatorView = new ImageAnnotatorView({
+  el: document.querySelector('main')
+})
+
+
+Object.assign(window, {imageAnnotatorView})
+</script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  margin:0;
+}
+
+main {
+  flex:1;
+  margin:0;
+  display: grid;
+  grid-template: 
+    "header header" auto
+    "image  canvas" 1fr
+  /  1fr    1fr;
+}
+
+main header {
+  grid-area: header;
+  border-bottom: 1px solid;
+  padding:1em;
+  background:white;
+}
+
+figure.image {
+  display: grid;
+  border: 1px solid;
+  -moz-user-select: none;
+  user-select: none;
+  position:relative;
+}
+figure img {
+  height:auto;
+  width: 100%;
+} 
+
+figure.canvas {
+  border: 1px solid;
+  width: auto;
+  height: auto;
+}
+
+div.active-selection {
+  background-color: hsla(50, 100%, 80%, .5);
+  position: absolute;
+}
+
+
+div.selection {
+  border: 1px solid hsla(20, 100%, 80%, .5);
+  position: absolute;  
+}
+
+.annotations {
+
+}
+
+
+.annotation {
+display: inline-flex;
+flex-direction: column;
+align-items: center;
+}
+
+.annotation input {
+width: 4em;
+margin: 4px;
+}
