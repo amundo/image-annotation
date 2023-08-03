@@ -1,0 +1,32 @@
+
+* {
+  box-sizing: border-box;
+}
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: grid;
+  grid-template:
+    "header header" auto
+    "controls main" 1fr
+    "footer footer" auto
+  /  1fr    4fr;
+}
+
+* {
+  border:1px solid chartreuse;
+}
+body header { grid-area: header; }
+body aside { grid-area: controls; }
+body main { grid-area: main; }
+body footer { grid-area: footer; }
+
+body header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}

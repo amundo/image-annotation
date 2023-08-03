@@ -1,0 +1,26 @@
+/* @import url(debugging.css); */
+@import url(layout.css);
+@import url(reset.css);
+@import url(typography.css);
+
+header {
+  padding-inline:1em;
+  font-size: 1rem;
+  border-block-end: 1px solid;;
+}
+
+aside {
+  padding-inline:1em;
+  font-size: 1rem;
+  border-inline-end: 1px solid;;
+}
+
+main svg {
+  background-color: lightgray;
+}
+
+header *,
+aside *,
+button {
+  font-size: inherit;
+}
