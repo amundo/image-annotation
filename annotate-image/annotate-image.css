@@ -1,0 +1,68 @@
+/* @import url(debugging.css); */
+@import url(layout.css);
+@import url(../reset.css);
+@import url(../typography.css);
+
+
+html, body, main, annotate-image {
+  height: 100%;
+}
+
+annotate-image {
+  display: grid;
+  grid-template:
+    "header header" auto
+    "controls main" 1fr
+    "footer footer" auto
+  /  1fr    4fr;
+}
+
+annotate-image > header { grid-area: header; }
+annotate-image > aside { grid-area: controls; }
+annotate-image > main { grid-area: main; }
+annotate-image > footer { grid-area: footer; }
+
+annotate-image > header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+
+annotate-image .draw :is(rect,circle, polygon) {
+  stroke: black;
+  stroke-width: 1;
+  fill: none;
+}
+
+
+annotate-image .toolset .tool.active :is(rect,circle, polygon) {
+  fill: lemonchiffon;
+}
+
+annotate-image header {
+  padding-inline:1em;
+  font-size: 1rem;
+  border-block-end: 1px solid;;
+}
+
+annotate-image aside {
+  padding-inline:1em;
+  font-size: 1rem;
+  border-inline-end: 1px solid;;
+}
+
+
+annotate-image main svg {
+  background-color: lightgray;
+}
+
+
+annotate-image header *,
+
+annotate-image aside *,
+
+annotate-image button {
+  font-size: inherit;
+}
+

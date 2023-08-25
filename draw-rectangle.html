@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Image Annotator iteration: display image</title>
+  <link rel="stylesheet" href="bearable-styling.css">
+  <link rel="icon" type="image/png" href="#">
+</head>
+<body>
+
+  <header>
+    <h1>Image Annotator</h1>
+    <nav>
+      Load image <input type="file">
+    </nav>
+  </header>
+
+  <aside>
+    <p>
+      In this iteration we draw a rectangle on the <code>svg</code>.
+    </p>
+    <h2>Tools</h2>
+    <div class="toolset">
+      
+      <button title="add rectangle" class="active tool" data-tool="rectangle">
+        <svg width="1em" height="1em">
+          <rect width="100%" height="100%" fill="none" stroke="black" stroke-width="1" />
+       </svg>
+      </button>
+      
+      <button title="add circle" class="tool" data-tool="circle">
+        <svg width="1em" height="1em">
+          <circle width="100%" height="100%" fill="none" stroke="black" stroke-width="1" cy="50%" r="45%" cx="50%"/>
+       </svg>
+      </button>
+
+<!-- 
+      <button title="add line" class="tool" data-tool="line">
+        <svg width="1rem" height="1rem">
+          <line width="100%" height="100%" fill="none" stroke="black" stroke-width="1" y1="0" y2="100%" x1="0" x2="100%"/>
+       </svg>
+      </button> -->
+
+    </div>
+    
+  </aside>
+
+  <main id="draw-rectangle">
+    <svg width="100%" height="100%">
+    </svg>  
+  </main>
+
+  <footer>
+    
+  </footer>
+
+<script>
+const tools = document.querySelectorAll('.toolset .tool')
+
+tools.forEach(tool => {
+  tool.addEventListener('click', clickEvent => {
+    console.log(clickEvent.target)
+    tools.forEach(t => clickEvent.target.classList.remove('active'))
+    clickEvent.target.classList.add('active')
+  })
+})
+
+let svg = document.querySelector('main svg')
+
+let isDrawing = false
+
+svg.addEventListener('mousedown', mousedownEvent => {
+  isDrawing = true;
+  let rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
+  
+  const rectId = 'rect-' + new Date().getTime()
+  rect.setAttribute('id', rectId)
+
+  rect.setAttribute('x', mousedownEvent.offsetX)
+  rect.setAttribute('y', mousedownEvent.offsetY)
+  rect.setAttribute('width', '0')
+  rect.setAttribute('height', '0')
+  svg.appendChild(rect)
+})
+
+svg.addEventListener('mousemove', mousemoveEvent => {
+  if (isDrawing) {
+    let rect = svg.querySelector('rect:last-child'); // Select the last created rectangle
+    if (rect) {
+      rect.setAttribute('width', mousemoveEvent.offsetX - rect.getAttribute('x'))
+      rect.setAttribute('height', mousemoveEvent.offsetY - rect.getAttribute('y'))
+      rect.setAttribute('stroke-width', '1')
+      rect.setAttribute('stroke-dasharray', '5,5')
+      rect.setAttribute('stroke-linecap', 'round')
+      rect.setAttribute('stroke-linejoin', 'round')
+      rect.setAttribute('fill', 'paleturquoise')
+      rect.setAttribute('stroke', 'black')
+    }
+  }
+})
+
+svg.addEventListener('mouseup', mouseupEvent => {
+  isDrawing = false;
+  let rect = svg.querySelector('rect:last-child'); // Select the last created rectangle
+  if (rect) {
+    rect.setAttribute('width', mouseupEvent.offsetX - rect.getAttribute('x'))
+    rect.setAttribute('height', mouseupEvent.offsetY - rect.getAttribute('y'))
+    rect.setAttribute('fill', 'paleturquoise')
+    rect.setAttribute('stroke', 'black')
+    rect.setAttribute('pointer-events', 'all')
+    rect.setAttribute('stroke-width', '1')
+    rect.setAttribute('stroke-dasharray', '5,5')
+    rect.setAttribute('data-tool', 'rectangle')
+    rect.addEventListener('click', clickEvent => {
+      console.log(clickEvent.target)
+      tools.forEach(t => t.classList.remove('active'))
+      tools.forEach(t => {
+        if (t.getAttribute('data-tool') === clickEvent.target.getAttribute('data-tool')) {
+          t.classList.add('active')
+        }
+      })
+    })
+  }
+})
+
+</script>
+
+<style>
+.tool {
+  display: inline-grid;
+  place-content: center;
+}
+
+.tool rect {
+  background-color: paleturquoise;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.tool svg {
+  pointer-events: none
+}
+
+.tool.active :is(rect,circle) {
+  fill: #007bff;
+  color: #fff;
+}
+
+</style>
+<script type="module" src="draw-rectangle.js"></script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Image Annotator iteration: detecting click coordinates</title>
+  <link rel="icon" type="image/png" href="#">
+</head>
+
+<body>
+
+  <div class="info">
+    Click anywhere in this screen to see the values below:
+    <table>
+      <tr><th>x:</th><td class="x"></td></tr>
+      <tr><th>y:</th><td class="y"></td></tr>
+    </table>
+  </div>
+
+<script>
+  document.body.addEventListener('click', clickEvent => {
+    document.querySelector('td.x').textContent = `${clickEvent.clientX}px`
+    document.querySelector('td.y').textContent = `${clickEvent.clientY}px`
+  })
+</script>
+
+<link rel="stylesheet" href="you-clicked-at.css">
+
+</body>
+
+</html>

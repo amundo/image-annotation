@@ -7,12 +7,11 @@ body {
   /  1fr    4fr;
 }
 
-body header { grid-area: header; }
-body aside { grid-area: controls; }
-body main { grid-area: main; }
-body footer { grid-area: footer; }
-
-body header {
+body > header { grid-area: header; }
+body > aside { grid-area: controls; }
+body > main { grid-area: main; }
+body > footer { grid-area: footer; }
+body > header {
   display: flex;
   align-items: baseline;
   justify-content: space-between;

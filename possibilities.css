@@ -1,0 +1,49 @@
+body {
+  margin: 2em;
+  padding:2em;
+}
+
+section {
+  height: 400px;
+  display: grid;
+  row-gap: 2rem;
+  grid-template-columns: 1fr 1fr;;
+  margin-bottom: 2em;
+}
+
+svg {
+  width: 100%;
+  height:100%;
+  background: palegoldenrod;
+}
+
+image {
+  width: 100%;
+  height: 100%; 
+}
+
+div {
+  border: 1px solid;
+  overflow: hidden;
+}
+
+div.landscape {
+  width: 300px;
+  height: 150px;
+  min-width: 175px;
+}
+
+div.portrait {
+  width: 150px;
+  height: 300px;
+  min-height: 155px;
+}
+
+div.landscape.has-landscape {
+  resize: horizontal;
+  background:pink;
+}
+
+div.portrait.has-portrait {
+  resize: vertical;
+}

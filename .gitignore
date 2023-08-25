@@ -1,1 +1,5 @@
 deploy.sh
+exclude-deploy.txt
+trace-mouse/README.md
+trace-mouse/you-clicked-at-2.html
+bird.svg
