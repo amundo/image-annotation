@@ -22,7 +22,7 @@ author: Patrick Hall
 
 ## Introduction
 
-I have found many contexts in which it would be useful to add annotations to images. For example, I am interested in writing systems for various reasons, and I often need to add annotations to images of text. I am also interested in building Web Components, and I thought it would be fun to build a Web Component that allows users to add annotations to images. This post describes the workflow I used to build the Web Component and the Web Component itself.
+I have found many contexts in which it would be useful to add annotations to images. For example, I am interested in writing systems for various reasons, and I often need to add annotations to images of text. I am also interested in building Web Components, and I thought it would be fun to build a Web Component that allows users to add annotations to images. In this article I am keeping a record of the steps I took and research I had to do to get the component working.
 
 ## The workflow
 
@@ -42,7 +42,7 @@ Probably the most difficult part of this project (in my estimation, after having
 
 The basic user interface I have in mind looks like this:
 
-[basic-interface.html](basic-interface.html)
+[basic-interface.html](./basic-interface.html)
 
 <iframe src="basic-interface.html" width="100%" height="300px"></iframe>
 
@@ -78,7 +78,7 @@ So try loading [mereri.jpg](mereri.jpg) using the interface below:
 
 This doesn’t do much, it just alerts the file name when we load it. But at least we know loading is happening. 
 
-Now, we need to actually load the image into the `<svg>`. Our strategy will be to insert the file object into the DOM at the `href` of the  `<image>` element. This isn’t _too_ bad. The `.files` property of the `<input type=files>` is a [File object](https://developer.mozilla.org/en-US/docs/Web/API/File), which means that is a subtype of a `Blob`. And a blob, in case you are unfamiliar, is just some undifferentiated data stored by the browser and given an URL. So we don’t even need to use anything like `URL.createObjectURL()`, because the file already _has_ a URL. In fact, if we pass a reference to our file object when we are creating the `<image>` tag’s `HTML`, the browser will put a blob URL in place and it will work. 
+Now, we need to actually load the image into the `<svg>`. Our strategy will be to insert the file object into the DOM at the `href` of the  `<image>` element. The `.files` property of the `<input type=files>` is a [File object](https://developer.mozilla.org/en-US/docs/Web/API/File), which means that is a subtype of a `Blob`. And a blob, in case you are unfamiliar, is just some undifferentiated data stored by the browser and given an URL. So we don’t even need to use anything like `URL.createObjectURL()`, because the file already _has_ a URL. In fact, if we pass a reference to our file object when we are creating the `<image>` tag’s `HTML`, the browser will put a blob URL in place and it will work. 
 
 ```js
 export let loadImage = async changeEvent => {
@@ -101,7 +101,7 @@ document.querySelector('input[type=file]')
 
 <iframe src="load-image-2.html" width="100%" height="300px"></iframe>
 
-As you can see, we’re back to our original problem: the image doesn’t fit in the `<svg>`. But this is not a  “data” problem — the image has been loaded correctly. As you can see below, the `href` attribute of the `<image>` tag is set to contain a blob URL (once you have loaded the image):
+As you can see, the image doesn’t fit in the `<svg>`. But the image is loading correctly. As you can see below, the `href` attribute of the `<image>` tag is set to contain a blob URL (once you have loaded the image):
 
 ```xml
 <image id="svg-image" x="0" y="0" href="blob:http://localhost:1111/cfe75b6a-887d-4d1a-81bb-c3a65ac28461"></image>
