@@ -1,0 +1,8 @@
+{
+  "fmt": {
+    "semiColons": false
+  },
+  "tasks": {
+    "build": "pandoc -f markdown -t html -o README.html README.md"
+  }
+}

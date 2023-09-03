@@ -254,8 +254,8 @@ annotations to images. For example, I am interested in writing systems
 for various reasons, and I often need to add annotations to images of
 text. I am also interested in building Web Components, and I thought it
 would be fun to build a Web Component that allows users to add
-annotations to images. This post describes the workflow I used to build
-the Web Component and the Web Component itself.</p>
+annotations to images. In this article I am keeping a record of the
+steps I took and research I had to do to get the component working.</p>
 <h2 id="the-workflow">The workflow</h2>
 <p>The workflow I have in mind for users is as follows:</p>
 <ol type="1">
@@ -281,7 +281,7 @@ href="https://geojson.io" class="uri">https://geojson.io</a> is an
 inspiration for me here.)</p>
 <h2 id="the-basic-user-interface">The basic user interface</h2>
 <p>The basic user interface I have in mind looks like this:</p>
-<p><a href="basic-interface.html">basic-interface.html</a></p>
+<p><a href="./basic-interface.html">basic-interface.html</a></p>
 <iframe src="basic-interface.html" width="100%" height="300px">
 </iframe>
 <p>Fugly, I know. The point right now is just to figure out what
@@ -323,8 +323,8 @@ But at least we know loading is happening.</p>
 <p>Now, we need to actually load the image into the
 <code>&lt;svg&gt;</code>. Our strategy will be to insert the file object
 into the DOM at the <code>href</code> of the <code>&lt;image&gt;</code>
-element. This isn’t <em>too</em> bad. The <code>.files</code> property
-of the <code>&lt;input type=files&gt;</code> is a <a
+element. The <code>.files</code> property of the
+<code>&lt;input type=files&gt;</code> is a <a
 href="https://developer.mozilla.org/en-US/docs/Web/API/File">File
 object</a>, which means that is a subtype of a <code>Blob</code>. And a
 blob, in case you are unfamiliar, is just some undifferentiated data

@@ -1,4 +1,5 @@
 deploy.sh
+.DS_Store
 exclude-deploy.txt
 trace-mouse/README.md
 trace-mouse/you-clicked-at-2.html
