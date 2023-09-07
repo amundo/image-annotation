@@ -350,11 +350,11 @@ work.</p>
 <p><a href="load-image-2.html">load-image-2.html</a></p>
 <iframe src="load-image-2.html" width="100%" height="300px">
 </iframe>
-<p>As you can see, we’re back to our original problem: the image doesn’t
-fit in the <code>&lt;svg&gt;</code>. But this is not a  “data” problem —
-the image has been loaded correctly. As you can see below, the
-<code>href</code> attribute of the <code>&lt;image&gt;</code> tag is set
-to contain a blob URL (once you have loaded the image):</p>
+<p>As you can see, the image doesn’t fit in the
+<code>&lt;svg&gt;</code>. But the image is loading correctly. As you can
+see below, the <code>href</code> attribute of the
+<code>&lt;image&gt;</code> tag is set to contain a blob URL (once you
+have loaded the image):</p>
 <div class="sourceCode" id="cb2"><pre
 class="sourceCode xml"><code class="sourceCode xml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">image</span><span class="ot"> id=</span><span class="st">&quot;svg-image&quot;</span><span class="ot"> x=</span><span class="st">&quot;0&quot;</span><span class="ot"> y=</span><span class="st">&quot;0&quot;</span><span class="ot"> href=</span><span class="st">&quot;blob:http://localhost:1111/cfe75b6a-887d-4d1a-81bb-c3a65ac28461&quot;</span>&gt;&lt;/<span class="kw">image</span>&gt;</span></code></pre></div>
 <p>Of course, your blob URL’s <a
@@ -404,14 +404,17 @@ of the image are the dimensions of the image file itself. The
 <code>width</code> and <code>height</code> properties of the image are
 the dimensions of the image as it is rendered on the page. See <a
 href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/naturalWidth">MDN</a>
-for more information.
+for more information. As we’ll see below, the SVG
+<code>&lt;image&gt;</code> tag does not have a <code>naturalWidth</code>
+or <code>naturalHeight</code> property, so we’ll have to do some extra
+work to get that information.
 </details>
-<p>In an <code>&lt;img&gt;</code> tag, if you set the width or height of
-an image, the image will be scaled. In this case, the <a
-href="mereri.jpg">image file</a> we are dealing with is 2000 wide and
-1500 pixels tall. So if I set the width of the image to 500 pixels, the
-image will be scaled to 500 pixels wide and 375 pixels tall (the height
-is scaled automatically in proportion to the change in width):</p>
+<p>With <code>&lt;img&gt;</code> tags, setting the width or height will
+cause it to be scaled. In this case, the <a href="mereri.jpg">image
+file</a> we are dealing with is 2000 wide and 1500 pixels tall. So if I
+set the width of the image to 500 pixels, the image will be scaled to
+500 pixels wide and 375 pixels tall (the height is scaled automatically
+in proportion to the change in width):</p>
 <div class="sourceCode" id="cb5"><pre
 class="sourceCode html"><code class="sourceCode html"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;img</span> <span class="er">src</span><span class="ot">=</span><span class="st">mereri.jpg</span> <span class="er">width</span><span class="ot">=</span><span class="st">500</span> <span class="er">style</span><span class="ot">=</span><span class="st">&quot;border:1px solid&quot;</span> <span class="er">class</span><span class="ot">=</span><span class="st">show-image-size</span><span class="kw">&gt;</span></span></code></pre></div>
 <p><img src=mereri.jpg width=500 style="border:1px solid" class=show-image-size></p>
@@ -422,18 +425,19 @@ class="sourceCode html"><code class="sourceCode html"><span id="cb6-1"><a href="
 <p><img src=mereri.jpg height=500 style="border:1px solid" class=show-image-size></p>
 <p>As you can see from the inline borders, the <code>&lt;img&gt;</code>
 tag adjusts its size so that the aspect ratio of the image is
-maintained. In effect, the image is scaled. If we set both
-<code>height</code> and <code>width</code> in different proportions, the
-image will be distorted to fit the dimensions we have set:</p>
+maintained: if we adjust the width, the height is automatically scaled
+in the same proportion, and vice-versa. If we set both
+<code>height</code> and <code>width</code> it is possible that the image
+will be distorted:</p>
 <div class="sourceCode" id="cb7"><pre
 class="sourceCode html"><code class="sourceCode html"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;img</span> <span class="er">src</span><span class="ot">=</span><span class="st">mereri.jpg</span> <span class="er">height</span><span class="ot">=</span><span class="st">200</span> <span class="er">width</span><span class="ot">=</span><span class="st">800</span> <span class="er">style</span><span class="ot">=</span><span class="st">&quot;border:1px solid&quot;</span> <span class="er">class</span><span class="ot">=</span><span class="st">show-image-size</span><span class="kw">&gt;</span></span></code></pre></div>
 <p><img src=mereri.jpg height=200 width=800 style="border:1px solid" class=show-image-size></p>
 <p>There’s one more thing worth noting before we move onto images in
-<code>svg</code>: panning. If you’re using a trackpad, you can pan
-around the image by using two fingers. If you’re using a touchscreen
-device, you can pan around the image by dragging with one finger. This
-is very much <em>not</em> how <code>SVG</code>s work, as we’ll see
-below.</p>
+<code>svg</code>: panning. Panning</p>
+<p>If you’re using a trackpad, you can pan around the image by using two
+fingers. If you’re using a touchscreen device, you can pan around the
+image by dragging with one finger. This is very much <em>not</em> how
+<code>SVG</code>s work, as we’ll see below.</p>
 <div class="sourceCode" id="cb8"><pre
 class="sourceCode html"><code class="sourceCode html"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;figure</span>  <span class="er">style</span><span class="ot">=</span><span class="st">&quot;max-width: none; border:4px double pink; height:150px; width: 300px; overflow:auto;&quot;</span> <span class="kw">&gt;</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;img</span> <span class="er">src</span><span class="ot">=</span><span class="st">mereri.jpg</span>  <span class="er">style</span><span class="ot">=</span><span class="st">&quot;max-width: none; border:1px solid&quot;</span> <span class="er">class</span><span class="ot">=</span><span class="st">show-image-size</span><span class="kw">&gt;</span></span>

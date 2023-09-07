@@ -150,10 +150,10 @@ document.querySelectorAll('.show-image-size')
   })
 ```
 
-The `naturalWidth` and `naturalHeight` properties of the image are the dimensions of the image file itself. The `width` and `height` properties of the image are the dimensions of the image as it is rendered on the page. See [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/naturalWidth) for more information.
+The `naturalWidth` and `naturalHeight` properties of the image are the dimensions of the image file itself. The `width` and `height` properties of the image are the dimensions of the image as it is rendered on the page. See [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/naturalWidth) for more information. As we’ll see below, the SVG `<image>` tag does not have a `naturalWidth` or `naturalHeight` property, so we’ll have to do some extra work to get that information.
 </details>
 
-In an `<img>` tag, if you set the width or height of an image, the image will be scaled. 
+With `<img>` tags, setting the width or height will cause it to be scaled. 
 In this case, the [image file](mereri.jpg) we are dealing with  is 2000 wide and 1500 pixels tall. So if I set the width of the image to 500 pixels, the image will be scaled to 500 pixels wide and 375 pixels tall (the height is scaled automatically in proportion to the change in width):
 
 ```html
@@ -172,7 +172,8 @@ Note that something similar happens if I set the height of the image to 500 pixe
 
 <img src=mereri.jpg height=500 style="border:1px solid" class=show-image-size>
 
-As you can see from the inline borders, the `<img>` tag adjusts its size so that the aspect ratio of the image is maintained. In effect, the image is scaled. If we set both `height` and `width` in different proportions, the image will be distorted to fit the dimensions we have set:
+As you can see from the inline borders, the `<img>` tag adjusts its size so that the aspect ratio of the image is maintained: if we adjust the width, the height is automatically scaled in the same proportion, and vice-versa. If we set both `height` and `width` it is possible that the image will be distorted:
+
 
 
 ```html
@@ -183,7 +184,9 @@ As you can see from the inline borders, the `<img>` tag adjusts its size so that
 <img src=mereri.jpg height=200 width=800 style="border:1px solid" class=show-image-size>
 
 
-There’s one more thing worth noting before we move onto images in `svg`: panning. If you’re using a trackpad, you can pan around the image by using two fingers. If you’re using a touchscreen device, you can pan around the image by dragging with one finger. This is very much _not_ how `SVG`s work, as we’ll see below.
+There’s one more thing worth noting before we move onto images in `svg`: panning.  Panning 
+
+If you’re using a trackpad, you can pan around the image by using two fingers. If you’re using a touchscreen device, you can pan around the image by dragging with one finger. This is very much _not_ how `SVG`s work, as we’ll see below.
 
 ```html
 <figure  style="max-width: none; border:4px double pink; height:150px; width: 300px; overflow:auto;" >
