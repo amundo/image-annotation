@@ -1,9 +1,0 @@
-
-div.info {
-  pointer-events: none;
-  position: fixed;
-  top: 0;
-  right: 1em;
-  border: 1px solid hsla(0, 0%, 0%, 0.5);
-  background: hsla(0, 0%, 100%, 0.8);
-}

@@ -1,8 +1,0 @@
-{
-  "fmt": {
-    "semiColons": false
-  },
-  "tasks": {
-    "build": "pandoc -f markdown -t html --css annotate-image-docs.css --template=template.html -o annotate-image-docs.html annotate-image-docs.md"
-  }
-}
