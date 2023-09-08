@@ -15,8 +15,14 @@ class AnnotateImage extends HTMLElement {
       <button class=export-data>export</button>
     </header>
     <nav>
-      <label><input name=current-command type="radio" value="move" checked> pan and zoom</label>
-      <label><input name=current-command type="radio" value="select"> select</label>
+      <section class=controls>
+        <label><input name=current-command type="radio" value="move" checked> pan and zoom</label>
+        <label><input name=current-command type="radio" value="select"> select</label>
+      </section>
+      <section class=undo>
+        <button class=undo-button>undo</button>
+        <button class=redo-button>redo</button>
+      </section>
     </nav>
     <svg>
       <image></image>
@@ -53,17 +59,22 @@ class AnnotateImage extends HTMLElement {
     }
   }
 
-  render(){
-  }
+  async loadImage(imageFile){
+    let blobUrl = URL.createObjectURL(imageFile)
+    this.querySelector('image').setAttribute('href', blobUrl)
 
-  async load(imageFile){
-    this.querySelector('image').setAttribute('href', URL.createObjectURL(imageFile))
+    let imageElement = new Image()
+    imageElement.src = blobUrl
+    imageElement.addEventListener('load', () => {
+      this.naturalWidth = imageElement.naturalWidth
+      this.naturalHeight = imageElement.naturalHeight
+    })
   }
 
   listen(){
     this.addEventListener('change', changeEvent => {
       if(changeEvent.target.matches('input[type="file"]')){
-        this.load(changeEvent.target.files[0])
+        this.loadImage(changeEvent.target.files[0])
       }
     })
   }
