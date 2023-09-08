@@ -24,7 +24,14 @@ annotate-image svg {
 
 annotate-image nav {
   align-content: start;
+  display: flex;
+  flex-direction: column;
+}
+
+annotate-image nav .controls {
+  flex: 1;
   display: grid;
+  align-content: start;
 }
 
 annotate-image section.annotate {
