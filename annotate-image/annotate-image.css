@@ -1,0 +1,33 @@
+annotate-image {
+  display:grid;
+  grid-template: 
+    "header header"  auto 
+    "nav    svg"     1fr 
+  /  1fr    5fr;
+  grid-gap: 1em;
+}
+
+annotate-image header {
+  grid-area: header;
+  display: flex;
+  align-items: baseline;
+}
+
+annotate-image header h1 {
+  flex: 1;
+}
+
+annotate-image svg {
+  grid-area: svg;
+  border: 2px solid;
+}
+
+annotate-image nav {
+  align-content: start;
+  display: grid;
+}
+
+annotate-image section.annotate {
+  display: none;
+}
+
